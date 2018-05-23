@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckdraw.demo.mapper.PrizeListMapper">
+  <resultMap id="BaseResultMap" type="com.luckdraw.demo.entity.PrizeList">
+    <id column="PL_ID" jdbcType="BIGINT" property="plId" />
+    <result column="PC_ID" jdbcType="BIGINT" property="pcId" />
+    <result column="PL_NAME" jdbcType="VARCHAR" property="plName" />
+    <result column="PL_DETAIL" jdbcType="VARCHAR" property="plDetail" />
+    <result column="PL_TYPE" jdbcType="INTEGER" property="plType" />
+    <result column="PL_NUM" jdbcType="INTEGER" property="plNum" />
+    <result column="PL_PUT_NUM" jdbcType="INTEGER" property="plPutNum" />
+    <result column="MAX_PL_TIME" jdbcType="INTEGER" property="maxPlTime" />
+    <result column="PL_PROBABILITY" jdbcType="DOUBLE" property="plProbability" />
+    <result column="PL_HUI_PROBABILITY" jdbcType="DOUBLE" property="plHuiProbability" />
+    <result column="AS_ID" jdbcType="INTEGER" property="asId" />
+    <result column="PL_VALID_START_TIME" jdbcType="TIMESTAMP" property="plValidStartTime" />
+    <result column="PL_VALID_END_TIME" jdbcType="TIMESTAMP" property="plValidEndTime" />
+    <result column="PL_STATUS" jdbcType="TINYINT" property="plStatus" />
+    <result column="PL_CREATE_TIME" jdbcType="TIMESTAMP" property="plCreateTime" />
+    <result column="PA_ID" jdbcType="BIGINT" property="paId" />
+    <result column="ADMIN_USER_ID" jdbcType="INTEGER" property="adminUserId" />
+    <result column="ADMIN_USER_NAME" jdbcType="VARCHAR" property="adminUserName" />
+    <result column="GOLD_NUM" jdbcType="INTEGER" property="goldNum" />
+    <result column="PL_OVER_NUM" jdbcType="INTEGER" property="plOverNum" />
+    <result column="PC_IMG_URL" jdbcType="VARCHAR" property="pcImgUrl" />
+    <result column="IS_DEFAULT" jdbcType="INTEGER" property="isDefault" />
+    <result column="PL_BUY_PROBABILITY" jdbcType="DOUBLE" property="plBuyProbability" />
+    <result column="PL_EXTEND" jdbcType="VARCHAR" property="plExtend" />
+    <result column="COUPON_CODE" jdbcType="VARCHAR" property="couponCode" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.luckdraw.demo.entity.PrizeList">
+    <result column="IMPORT_CODE" jdbcType="LONGVARCHAR" property="importCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PL_ID, PC_ID, PL_NAME, PL_DETAIL, PL_TYPE, PL_NUM, PL_PUT_NUM, MAX_PL_TIME, PL_PROBABILITY, 
+    PL_HUI_PROBABILITY, AS_ID, PL_VALID_START_TIME, PL_VALID_END_TIME, PL_STATUS, PL_CREATE_TIME, 
+    PA_ID, ADMIN_USER_ID, ADMIN_USER_NAME, GOLD_NUM, PL_OVER_NUM, PC_IMG_URL, IS_DEFAULT, 
+    PL_BUY_PROBABILITY, PL_EXTEND, COUPON_CODE
+  </sql>
+  <sql id="Blob_Column_List">
+    IMPORT_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from WDZJ_PRIZE_LIST
+    where PL_ID = #{plId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from WDZJ_PRIZE_LIST
+    where PL_ID = #{plId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luckdraw.demo.entity.PrizeList">
+    <selectKey keyProperty="plId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_PRIZE_LIST (PC_ID, PL_NAME, PL_DETAIL, 
+      PL_TYPE, PL_NUM, PL_PUT_NUM, 
+      MAX_PL_TIME, PL_PROBABILITY, PL_HUI_PROBABILITY, 
+      AS_ID, PL_VALID_START_TIME, PL_VALID_END_TIME, 
+      PL_STATUS, PL_CREATE_TIME, PA_ID, 
+      ADMIN_USER_ID, ADMIN_USER_NAME, GOLD_NUM, 
+      PL_OVER_NUM, PC_IMG_URL, IS_DEFAULT, 
+      PL_BUY_PROBABILITY, PL_EXTEND, COUPON_CODE, 
+      IMPORT_CODE)
+    values (#{pcId,jdbcType=BIGINT}, #{plName,jdbcType=VARCHAR}, #{plDetail,jdbcType=VARCHAR}, 
+      #{plType,jdbcType=INTEGER}, #{plNum,jdbcType=INTEGER}, #{plPutNum,jdbcType=INTEGER}, 
+      #{maxPlTime,jdbcType=INTEGER}, #{plProbability,jdbcType=DOUBLE}, #{plHuiProbability,jdbcType=DOUBLE}, 
+      #{asId,jdbcType=INTEGER}, #{plValidStartTime,jdbcType=TIMESTAMP}, #{plValidEndTime,jdbcType=TIMESTAMP}, 
+      #{plStatus,jdbcType=TINYINT}, #{plCreateTime,jdbcType=TIMESTAMP}, #{paId,jdbcType=BIGINT}, 
+      #{adminUserId,jdbcType=INTEGER}, #{adminUserName,jdbcType=VARCHAR}, #{goldNum,jdbcType=INTEGER}, 
+      #{plOverNum,jdbcType=INTEGER}, #{pcImgUrl,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}, 
+      #{plBuyProbability,jdbcType=DOUBLE}, #{plExtend,jdbcType=VARCHAR}, #{couponCode,jdbcType=VARCHAR}, 
+      #{importCode,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luckdraw.demo.entity.PrizeList">
+    <selectKey keyProperty="plId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_PRIZE_LIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pcId != null">
+        PC_ID,
+      </if>
+      <if test="plName != null">
+        PL_NAME,
+      </if>
+      <if test="plDetail != null">
+        PL_DETAIL,
+      </if>
+      <if test="plType != null">
+        PL_TYPE,
+      </if>
+      <if test="plNum != null">
+        PL_NUM,
+      </if>
+      <if test="plPutNum != null">
+        PL_PUT_NUM,
+      </if>
+      <if test="maxPlTime != null">
+        MAX_PL_TIME,
+      </if>
+      <if test="plProbability != null">
+        PL_PROBABILITY,
+      </if>
+      <if test="plHuiProbability != null">
+        PL_HUI_PROBABILITY,
+      </if>
+      <if test="asId != null">
+        AS_ID,
+      </if>
+      <if test="plValidStartTime != null">
+        PL_VALID_START_TIME,
+      </if>
+      <if test="plValidEndTime != null">
+        PL_VALID_END_TIME,
+      </if>
+      <if test="plStatus != null">
+        PL_STATUS,
+      </if>
+      <if test="plCreateTime != null">
+        PL_CREATE_TIME,
+      </if>
+      <if test="paId != null">
+        PA_ID,
+      </if>
+      <if test="adminUserId != null">
+        ADMIN_USER_ID,
+      </if>
+      <if test="adminUserName != null">
+        ADMIN_USER_NAME,
+      </if>
+      <if test="goldNum != null">
+        GOLD_NUM,
+      </if>
+      <if test="plOverNum != null">
+        PL_OVER_NUM,
+      </if>
+      <if test="pcImgUrl != null">
+        PC_IMG_URL,
+      </if>
+      <if test="isDefault != null">
+        IS_DEFAULT,
+      </if>
+      <if test="plBuyProbability != null">
+        PL_BUY_PROBABILITY,
+      </if>
+      <if test="plExtend != null">
+        PL_EXTEND,
+      </if>
+      <if test="couponCode != null">
+        COUPON_CODE,
+      </if>
+      <if test="importCode != null">
+        IMPORT_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pcId != null">
+        #{pcId,jdbcType=BIGINT},
+      </if>
+      <if test="plName != null">
+        #{plName,jdbcType=VARCHAR},
+      </if>
+      <if test="plDetail != null">
+        #{plDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="plType != null">
+        #{plType,jdbcType=INTEGER},
+      </if>
+      <if test="plNum != null">
+        #{plNum,jdbcType=INTEGER},
+      </if>
+      <if test="plPutNum != null">
+        #{plPutNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxPlTime != null">
+        #{maxPlTime,jdbcType=INTEGER},
+      </if>
+      <if test="plProbability != null">
+        #{plProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="plHuiProbability != null">
+        #{plHuiProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="asId != null">
+        #{asId,jdbcType=INTEGER},
+      </if>
+      <if test="plValidStartTime != null">
+        #{plValidStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plValidEndTime != null">
+        #{plValidEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plStatus != null">
+        #{plStatus,jdbcType=TINYINT},
+      </if>
+      <if test="plCreateTime != null">
+        #{plCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paId != null">
+        #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="adminUserId != null">
+        #{adminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="adminUserName != null">
+        #{adminUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="goldNum != null">
+        #{goldNum,jdbcType=INTEGER},
+      </if>
+      <if test="plOverNum != null">
+        #{plOverNum,jdbcType=INTEGER},
+      </if>
+      <if test="pcImgUrl != null">
+        #{pcImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="plBuyProbability != null">
+        #{plBuyProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="plExtend != null">
+        #{plExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null">
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="importCode != null">
+        #{importCode,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luckdraw.demo.entity.PrizeList">
+    update WDZJ_PRIZE_LIST
+    <set>
+      <if test="pcId != null">
+        PC_ID = #{pcId,jdbcType=BIGINT},
+      </if>
+      <if test="plName != null">
+        PL_NAME = #{plName,jdbcType=VARCHAR},
+      </if>
+      <if test="plDetail != null">
+        PL_DETAIL = #{plDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="plType != null">
+        PL_TYPE = #{plType,jdbcType=INTEGER},
+      </if>
+      <if test="plNum != null">
+        PL_NUM = #{plNum,jdbcType=INTEGER},
+      </if>
+      <if test="plPutNum != null">
+        PL_PUT_NUM = #{plPutNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxPlTime != null">
+        MAX_PL_TIME = #{maxPlTime,jdbcType=INTEGER},
+      </if>
+      <if test="plProbability != null">
+        PL_PROBABILITY = #{plProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="plHuiProbability != null">
+        PL_HUI_PROBABILITY = #{plHuiProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="asId != null">
+        AS_ID = #{asId,jdbcType=INTEGER},
+      </if>
+      <if test="plValidStartTime != null">
+        PL_VALID_START_TIME = #{plValidStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plValidEndTime != null">
+        PL_VALID_END_TIME = #{plValidEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plStatus != null">
+        PL_STATUS = #{plStatus,jdbcType=TINYINT},
+      </if>
+      <if test="plCreateTime != null">
+        PL_CREATE_TIME = #{plCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paId != null">
+        PA_ID = #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="adminUserId != null">
+        ADMIN_USER_ID = #{adminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="adminUserName != null">
+        ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="goldNum != null">
+        GOLD_NUM = #{goldNum,jdbcType=INTEGER},
+      </if>
+      <if test="plOverNum != null">
+        PL_OVER_NUM = #{plOverNum,jdbcType=INTEGER},
+      </if>
+      <if test="pcImgUrl != null">
+        PC_IMG_URL = #{pcImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        IS_DEFAULT = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="plBuyProbability != null">
+        PL_BUY_PROBABILITY = #{plBuyProbability,jdbcType=DOUBLE},
+      </if>
+      <if test="plExtend != null">
+        PL_EXTEND = #{plExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null">
+        COUPON_CODE = #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="importCode != null">
+        IMPORT_CODE = #{importCode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where PL_ID = #{plId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luckdraw.demo.entity.PrizeList">
+    update WDZJ_PRIZE_LIST
+    set PC_ID = #{pcId,jdbcType=BIGINT},
+      PL_NAME = #{plName,jdbcType=VARCHAR},
+      PL_DETAIL = #{plDetail,jdbcType=VARCHAR},
+      PL_TYPE = #{plType,jdbcType=INTEGER},
+      PL_NUM = #{plNum,jdbcType=INTEGER},
+      PL_PUT_NUM = #{plPutNum,jdbcType=INTEGER},
+      MAX_PL_TIME = #{maxPlTime,jdbcType=INTEGER},
+      PL_PROBABILITY = #{plProbability,jdbcType=DOUBLE},
+      PL_HUI_PROBABILITY = #{plHuiProbability,jdbcType=DOUBLE},
+      AS_ID = #{asId,jdbcType=INTEGER},
+      PL_VALID_START_TIME = #{plValidStartTime,jdbcType=TIMESTAMP},
+      PL_VALID_END_TIME = #{plValidEndTime,jdbcType=TIMESTAMP},
+      PL_STATUS = #{plStatus,jdbcType=TINYINT},
+      PL_CREATE_TIME = #{plCreateTime,jdbcType=TIMESTAMP},
+      PA_ID = #{paId,jdbcType=BIGINT},
+      ADMIN_USER_ID = #{adminUserId,jdbcType=INTEGER},
+      ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
+      GOLD_NUM = #{goldNum,jdbcType=INTEGER},
+      PL_OVER_NUM = #{plOverNum,jdbcType=INTEGER},
+      PC_IMG_URL = #{pcImgUrl,jdbcType=VARCHAR},
+      IS_DEFAULT = #{isDefault,jdbcType=INTEGER},
+      PL_BUY_PROBABILITY = #{plBuyProbability,jdbcType=DOUBLE},
+      PL_EXTEND = #{plExtend,jdbcType=VARCHAR},
+      COUPON_CODE = #{couponCode,jdbcType=VARCHAR},
+      IMPORT_CODE = #{importCode,jdbcType=LONGVARCHAR}
+    where PL_ID = #{plId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luckdraw.demo.entity.PrizeList">
+    update WDZJ_PRIZE_LIST
+    set PC_ID = #{pcId,jdbcType=BIGINT},
+      PL_NAME = #{plName,jdbcType=VARCHAR},
+      PL_DETAIL = #{plDetail,jdbcType=VARCHAR},
+      PL_TYPE = #{plType,jdbcType=INTEGER},
+      PL_NUM = #{plNum,jdbcType=INTEGER},
+      PL_PUT_NUM = #{plPutNum,jdbcType=INTEGER},
+      MAX_PL_TIME = #{maxPlTime,jdbcType=INTEGER},
+      PL_PROBABILITY = #{plProbability,jdbcType=DOUBLE},
+      PL_HUI_PROBABILITY = #{plHuiProbability,jdbcType=DOUBLE},
+      AS_ID = #{asId,jdbcType=INTEGER},
+      PL_VALID_START_TIME = #{plValidStartTime,jdbcType=TIMESTAMP},
+      PL_VALID_END_TIME = #{plValidEndTime,jdbcType=TIMESTAMP},
+      PL_STATUS = #{plStatus,jdbcType=TINYINT},
+      PL_CREATE_TIME = #{plCreateTime,jdbcType=TIMESTAMP},
+      PA_ID = #{paId,jdbcType=BIGINT},
+      ADMIN_USER_ID = #{adminUserId,jdbcType=INTEGER},
+      ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
+      GOLD_NUM = #{goldNum,jdbcType=INTEGER},
+      PL_OVER_NUM = #{plOverNum,jdbcType=INTEGER},
+      PC_IMG_URL = #{pcImgUrl,jdbcType=VARCHAR},
+      IS_DEFAULT = #{isDefault,jdbcType=INTEGER},
+      PL_BUY_PROBABILITY = #{plBuyProbability,jdbcType=DOUBLE},
+      PL_EXTEND = #{plExtend,jdbcType=VARCHAR},
+      COUPON_CODE = #{couponCode,jdbcType=VARCHAR}
+    where PL_ID = #{plId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="GetPrizeListByPaCode" parameterType="long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from WDZJ_PRIZE_LIST
+    where PA_ID=#{paId}
+  </select>
+
+    <select id="GetPrizeList" parameterType="com.luckdraw.demo.entity.PrizeList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from WDZJ_PRIZE_LIST
+        where PA_ID=#{paId} and PL_ID=#{plId}
+    </select>
+</mapper>

@@ -1,6 +1,10 @@
 package com.luckdraw.demo.service;
 
+import com.luckdraw.demo.vo.LuckDrawVo;
+
+import java.util.Map;
+
 public interface LuckDrawService {
 
-    void luckDraw();
+    Map<String, Object> luckDraw(LuckDrawVo luckDraw);
 }

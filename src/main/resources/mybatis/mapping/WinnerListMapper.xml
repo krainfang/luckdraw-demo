@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckdraw.demo.mapper.WinnerListMapper">
+  <resultMap id="BaseResultMap" type="com.luckdraw.demo.entity.WinnerList">
+    <id column="WL_ID" jdbcType="BIGINT" property="wlId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="PL_ID" jdbcType="BIGINT" property="plId" />
+    <result column="VERIFICATION_CODE" jdbcType="VARCHAR" property="verificationCode" />
+    <result column="WL_TIME" jdbcType="TIMESTAMP" property="wlTime" />
+    <result column="WL_DATE" jdbcType="DATE" property="wlDate" />
+    <result column="WL_IS_REAL" jdbcType="TINYINT" property="wlIsReal" />
+    <result column="PA_ID" jdbcType="BIGINT" property="paId" />
+    <result column="WL_IS_ACTIVE" jdbcType="TINYINT" property="wlIsActive" />
+    <result column="WL_PLAT_PHONE" jdbcType="VARCHAR" property="wlPlatPhone" />
+    <result column="ZHIFUBAO" jdbcType="VARCHAR" property="zhifubao" />
+    <result column="WL_FROM_ID" jdbcType="VARCHAR" property="wlFromId" />
+    <result column="WL_IS_SAVE" jdbcType="TINYINT" property="wlIsSave" />
+    <result column="WL_IS_EXCHANGE" jdbcType="TINYINT" property="wlIsExchange" />
+    <result column="WL_EXCHANGE_PRIZE_ID" jdbcType="INTEGER" property="wlExchangePrizeId" />
+    <result column="WL_ACTIVE_DATE" jdbcType="TIMESTAMP" property="wlActiveDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    WL_ID, USER_ID, USER_NAME, USER_MOBILE, IP_ADDRESS, PL_ID, VERIFICATION_CODE, WL_TIME, 
+    WL_DATE, WL_IS_REAL, PA_ID, WL_IS_ACTIVE, WL_PLAT_PHONE, ZHIFUBAO, WL_FROM_ID, WL_IS_SAVE, 
+    WL_IS_EXCHANGE, WL_EXCHANGE_PRIZE_ID, WL_ACTIVE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WDZJ_WINNERS_LIST
+    where WL_ID = #{wlId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from WDZJ_WINNERS_LIST
+    where WL_ID = #{wlId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luckdraw.demo.entity.WinnerList">
+    <selectKey keyProperty="wlId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_WINNERS_LIST (USER_ID, USER_NAME, USER_MOBILE, 
+      IP_ADDRESS, PL_ID, VERIFICATION_CODE, 
+      WL_TIME, WL_DATE, WL_IS_REAL, 
+      PA_ID, WL_IS_ACTIVE, WL_PLAT_PHONE, 
+      ZHIFUBAO, WL_FROM_ID, WL_IS_SAVE, 
+      WL_IS_EXCHANGE, WL_EXCHANGE_PRIZE_ID, WL_ACTIVE_DATE
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, 
+      #{ipAddress,jdbcType=VARCHAR}, #{plId,jdbcType=BIGINT}, #{verificationCode,jdbcType=VARCHAR}, 
+      #{wlTime,jdbcType=TIMESTAMP}, #{wlDate,jdbcType=DATE}, #{wlIsReal,jdbcType=TINYINT}, 
+      #{paId,jdbcType=BIGINT}, #{wlIsActive,jdbcType=TINYINT}, #{wlPlatPhone,jdbcType=VARCHAR}, 
+      #{zhifubao,jdbcType=VARCHAR}, #{wlFromId,jdbcType=VARCHAR}, #{wlIsSave,jdbcType=TINYINT}, 
+      #{wlIsExchange,jdbcType=TINYINT}, #{wlExchangePrizeId,jdbcType=INTEGER}, #{wlActiveDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luckdraw.demo.entity.WinnerList">
+    <selectKey keyProperty="wlId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_WINNERS_LIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE,
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS,
+      </if>
+      <if test="plId != null">
+        PL_ID,
+      </if>
+      <if test="verificationCode != null">
+        VERIFICATION_CODE,
+      </if>
+      <if test="wlTime != null">
+        WL_TIME,
+      </if>
+      <if test="wlDate != null">
+        WL_DATE,
+      </if>
+      <if test="wlIsReal != null">
+        WL_IS_REAL,
+      </if>
+      <if test="paId != null">
+        PA_ID,
+      </if>
+      <if test="wlIsActive != null">
+        WL_IS_ACTIVE,
+      </if>
+      <if test="wlPlatPhone != null">
+        WL_PLAT_PHONE,
+      </if>
+      <if test="zhifubao != null">
+        ZHIFUBAO,
+      </if>
+      <if test="wlFromId != null">
+        WL_FROM_ID,
+      </if>
+      <if test="wlIsSave != null">
+        WL_IS_SAVE,
+      </if>
+      <if test="wlIsExchange != null">
+        WL_IS_EXCHANGE,
+      </if>
+      <if test="wlExchangePrizeId != null">
+        WL_EXCHANGE_PRIZE_ID,
+      </if>
+      <if test="wlActiveDate != null">
+        WL_ACTIVE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plId != null">
+        #{plId,jdbcType=BIGINT},
+      </if>
+      <if test="verificationCode != null">
+        #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wlTime != null">
+        #{wlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wlDate != null">
+        #{wlDate,jdbcType=DATE},
+      </if>
+      <if test="wlIsReal != null">
+        #{wlIsReal,jdbcType=TINYINT},
+      </if>
+      <if test="paId != null">
+        #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="wlIsActive != null">
+        #{wlIsActive,jdbcType=TINYINT},
+      </if>
+      <if test="wlPlatPhone != null">
+        #{wlPlatPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="zhifubao != null">
+        #{zhifubao,jdbcType=VARCHAR},
+      </if>
+      <if test="wlFromId != null">
+        #{wlFromId,jdbcType=VARCHAR},
+      </if>
+      <if test="wlIsSave != null">
+        #{wlIsSave,jdbcType=TINYINT},
+      </if>
+      <if test="wlIsExchange != null">
+        #{wlIsExchange,jdbcType=TINYINT},
+      </if>
+      <if test="wlExchangePrizeId != null">
+        #{wlExchangePrizeId,jdbcType=INTEGER},
+      </if>
+      <if test="wlActiveDate != null">
+        #{wlActiveDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luckdraw.demo.entity.WinnerList">
+    update WDZJ_WINNERS_LIST
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plId != null">
+        PL_ID = #{plId,jdbcType=BIGINT},
+      </if>
+      <if test="verificationCode != null">
+        VERIFICATION_CODE = #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wlTime != null">
+        WL_TIME = #{wlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wlDate != null">
+        WL_DATE = #{wlDate,jdbcType=DATE},
+      </if>
+      <if test="wlIsReal != null">
+        WL_IS_REAL = #{wlIsReal,jdbcType=TINYINT},
+      </if>
+      <if test="paId != null">
+        PA_ID = #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="wlIsActive != null">
+        WL_IS_ACTIVE = #{wlIsActive,jdbcType=TINYINT},
+      </if>
+      <if test="wlPlatPhone != null">
+        WL_PLAT_PHONE = #{wlPlatPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="zhifubao != null">
+        ZHIFUBAO = #{zhifubao,jdbcType=VARCHAR},
+      </if>
+      <if test="wlFromId != null">
+        WL_FROM_ID = #{wlFromId,jdbcType=VARCHAR},
+      </if>
+      <if test="wlIsSave != null">
+        WL_IS_SAVE = #{wlIsSave,jdbcType=TINYINT},
+      </if>
+      <if test="wlIsExchange != null">
+        WL_IS_EXCHANGE = #{wlIsExchange,jdbcType=TINYINT},
+      </if>
+      <if test="wlExchangePrizeId != null">
+        WL_EXCHANGE_PRIZE_ID = #{wlExchangePrizeId,jdbcType=INTEGER},
+      </if>
+      <if test="wlActiveDate != null">
+        WL_ACTIVE_DATE = #{wlActiveDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WL_ID = #{wlId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luckdraw.demo.entity.WinnerList">
+    update WDZJ_WINNERS_LIST
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      PL_ID = #{plId,jdbcType=BIGINT},
+      VERIFICATION_CODE = #{verificationCode,jdbcType=VARCHAR},
+      WL_TIME = #{wlTime,jdbcType=TIMESTAMP},
+      WL_DATE = #{wlDate,jdbcType=DATE},
+      WL_IS_REAL = #{wlIsReal,jdbcType=TINYINT},
+      PA_ID = #{paId,jdbcType=BIGINT},
+      WL_IS_ACTIVE = #{wlIsActive,jdbcType=TINYINT},
+      WL_PLAT_PHONE = #{wlPlatPhone,jdbcType=VARCHAR},
+      ZHIFUBAO = #{zhifubao,jdbcType=VARCHAR},
+      WL_FROM_ID = #{wlFromId,jdbcType=VARCHAR},
+      WL_IS_SAVE = #{wlIsSave,jdbcType=TINYINT},
+      WL_IS_EXCHANGE = #{wlIsExchange,jdbcType=TINYINT},
+      WL_EXCHANGE_PRIZE_ID = #{wlExchangePrizeId,jdbcType=INTEGER},
+      WL_ACTIVE_DATE = #{wlActiveDate,jdbcType=TIMESTAMP}
+    where WL_ID = #{wlId,jdbcType=BIGINT}
+  </update>
+</mapper>

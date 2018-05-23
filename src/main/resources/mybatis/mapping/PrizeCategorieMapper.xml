@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckdraw.demo.mapper.PrizeCategorieMapper">
+  <resultMap id="BaseResultMap" type="com.luckdraw.demo.entity.PrizeCategorie">
+    <id column="PC_ID" jdbcType="BIGINT" property="pcId" />
+    <result column="PC_NAME" jdbcType="VARCHAR" property="pcName" />
+    <result column="PC_START_TIME" jdbcType="TIMESTAMP" property="pcStartTime" />
+    <result column="PC_END_TIME" jdbcType="TIMESTAMP" property="pcEndTime" />
+    <result column="PC_IMG_URL" jdbcType="VARCHAR" property="pcImgUrl" />
+    <result column="PC_STATUS" jdbcType="TINYINT" property="pcStatus" />
+    <result column="PC_SORT" jdbcType="INTEGER" property="pcSort" />
+    <result column="PA_ID" jdbcType="BIGINT" property="paId" />
+    <result column="PC_EXTEND" jdbcType="VARCHAR" property="pcExtend" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PC_ID, PC_NAME, PC_START_TIME, PC_END_TIME, PC_IMG_URL, PC_STATUS, PC_SORT, PA_ID, 
+    PC_EXTEND, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WDZJ_PRIZE_CATEGORIES
+    where PC_ID = #{pcId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from WDZJ_PRIZE_CATEGORIES
+    where PC_ID = #{pcId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luckdraw.demo.entity.PrizeCategorie">
+    <selectKey keyProperty="pcId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_PRIZE_CATEGORIES (PC_NAME, PC_START_TIME, PC_END_TIME, 
+      PC_IMG_URL, PC_STATUS, PC_SORT, 
+      PA_ID, PC_EXTEND, UPDATE_TIME
+      )
+    values (#{pcName,jdbcType=VARCHAR}, #{pcStartTime,jdbcType=TIMESTAMP}, #{pcEndTime,jdbcType=TIMESTAMP}, 
+      #{pcImgUrl,jdbcType=VARCHAR}, #{pcStatus,jdbcType=TINYINT}, #{pcSort,jdbcType=INTEGER}, 
+      #{paId,jdbcType=BIGINT}, #{pcExtend,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luckdraw.demo.entity.PrizeCategorie">
+    <selectKey keyProperty="pcId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into WDZJ_PRIZE_CATEGORIES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pcName != null">
+        PC_NAME,
+      </if>
+      <if test="pcStartTime != null">
+        PC_START_TIME,
+      </if>
+      <if test="pcEndTime != null">
+        PC_END_TIME,
+      </if>
+      <if test="pcImgUrl != null">
+        PC_IMG_URL,
+      </if>
+      <if test="pcStatus != null">
+        PC_STATUS,
+      </if>
+      <if test="pcSort != null">
+        PC_SORT,
+      </if>
+      <if test="paId != null">
+        PA_ID,
+      </if>
+      <if test="pcExtend != null">
+        PC_EXTEND,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pcName != null">
+        #{pcName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcStartTime != null">
+        #{pcStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcEndTime != null">
+        #{pcEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcImgUrl != null">
+        #{pcImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pcStatus != null">
+        #{pcStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pcSort != null">
+        #{pcSort,jdbcType=INTEGER},
+      </if>
+      <if test="paId != null">
+        #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="pcExtend != null">
+        #{pcExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luckdraw.demo.entity.PrizeCategorie">
+    update WDZJ_PRIZE_CATEGORIES
+    <set>
+      <if test="pcName != null">
+        PC_NAME = #{pcName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcStartTime != null">
+        PC_START_TIME = #{pcStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcEndTime != null">
+        PC_END_TIME = #{pcEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcImgUrl != null">
+        PC_IMG_URL = #{pcImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pcStatus != null">
+        PC_STATUS = #{pcStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pcSort != null">
+        PC_SORT = #{pcSort,jdbcType=INTEGER},
+      </if>
+      <if test="paId != null">
+        PA_ID = #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="pcExtend != null">
+        PC_EXTEND = #{pcExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PC_ID = #{pcId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luckdraw.demo.entity.PrizeCategorie">
+    update WDZJ_PRIZE_CATEGORIES
+    set PC_NAME = #{pcName,jdbcType=VARCHAR},
+      PC_START_TIME = #{pcStartTime,jdbcType=TIMESTAMP},
+      PC_END_TIME = #{pcEndTime,jdbcType=TIMESTAMP},
+      PC_IMG_URL = #{pcImgUrl,jdbcType=VARCHAR},
+      PC_STATUS = #{pcStatus,jdbcType=TINYINT},
+      PC_SORT = #{pcSort,jdbcType=INTEGER},
+      PA_ID = #{paId,jdbcType=BIGINT},
+      PC_EXTEND = #{pcExtend,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where PC_ID = #{pcId,jdbcType=BIGINT}
+  </update>
+
+  <select id="GetCategories" parameterType="long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    WDZJ_PRIZE_CATEGORIES where PA_ID = #{paId,jdbcType=BIGINT}
+  </select>
+</mapper>

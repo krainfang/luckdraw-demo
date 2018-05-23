@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="/Users/krain/Documents/programs/mvn_repo2/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
+
+    <context id="mysql" targetRuntime="MyBatis3">
+        <property name="mergeable" value="false"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql:///luckdraw_demo?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=false"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.luckdraw.demo.entity" targetProject="/Users/krain/IdeaProjects/luckdraw-demo/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mybatis.mapping"  targetProject="/Users/krain/IdeaProjects/luckdraw-demo/src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.luckdraw.demo.mapper"  targetProject="/Users/krain/IdeaProjects/luckdraw-demo/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table schema="luckdraw_demo" tableName="WDZJ_PRIZE_CATEGORIES" domainObjectName="PrizeCategorie"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               selectByExampleQueryId="false" >
+            <generatedKey column="PC_ID" sqlStatement="MySQL" identity="true" />
+        </table>
+        <table schema="luckdraw_demo" tableName="WDZJ_WINNERS_LIST" domainObjectName="WinnerList"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               selectByExampleQueryId="false" >
+            <generatedKey column="WL_ID" sqlStatement="MySQL" identity="true" />
+        </table>
+
+        <table schema="luckdraw_demo" tableName="WDZJ_PRIZE_LIST" domainObjectName="PrizeList"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               selectByExampleQueryId="false" >
+            <generatedKey column="PL_ID" sqlStatement="MySQL" identity="true" />
+        </table>
+    </context>
+</generatorConfiguration>
